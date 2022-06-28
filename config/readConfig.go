@@ -7,12 +7,15 @@ import (
 	"gopkg.in/ini.v1"
 )
 
+var yycConfig YycConfig
+
 type YycConfig struct {
-	MP databases.MysqlParam `ini:mysql`
+	MP     databases.MysqlParam `ini:mysql`
+	LogDir string               `ini:"logdir"`
 }
 func ReadConfig() (YycConfig, error){
 	var configDir string
-	var yycConfig YycConfig
+
 	flag.StringVar(&configDir, "c", "", "配置文件路径")
 	flag.Parse()
 	fmt.Println(configDir)
@@ -29,7 +32,15 @@ func ReadConfig() (YycConfig, error){
 		fmt.Println(err)
 		return yycConfig, err
 	}
+	yycConfig.LogDir = cfgs.Section("log").Key("logdir").Value()
 	//fmt.Println(yycConfig.MP)
 
 	return yycConfig, nil
+}
+
+func GetLogDir() string {
+	return yycConfig.LogDir
+}
+func GetConfig() YycConfig{
+	return yycConfig
 }
