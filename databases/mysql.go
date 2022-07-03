@@ -6,6 +6,10 @@ import (
 	"time"
 )
 
+var (
+	dbGlobal *gorm.DB
+)
+
 type MysqlParam struct {
 	DriverName string `ini:"driver_name"`
 	Host       string `ini:"host"`
@@ -30,5 +34,10 @@ func InitDbMysql(mp MysqlParam) (*gorm.DB, error) {
 	sqlDB.SetMaxIdleConns(10)
 	sqlDB.SetMaxOpenConns(100)
 	sqlDB.SetConnMaxLifetime(time.Duration(28801) * time.Second)
+	dbGlobal = db
 	return db, nil
+}
+
+func GetMysqlDB() *gorm.DB {
+	return dbGlobal
 }

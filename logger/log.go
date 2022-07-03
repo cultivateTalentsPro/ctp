@@ -33,9 +33,9 @@ func GetLogger() *log.Logger {
 	return logger
 
 }
-func TestLog(log *log.Logger) {
-	for {
-		log.Info("hello, world!")
-		time.Sleep(time.Duration(2) * time.Second)
-	}
-}
+//func TestLog(log *log.Logger) {
+//	for {
+//		log.Info("hello, world!")
+//		time.Sleep(time.Duration(2) * time.Second)
+//	}
+//}

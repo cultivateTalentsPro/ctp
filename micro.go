@@ -49,7 +49,7 @@ func main() {
 	//micro.NewService(
 	//	micro.RegisterHandler()
 	//	)
-	go logger.TestLog(log)
+	//go logger.TestLog(log)
 
 	service := web.NewService(
 
@@ -63,5 +63,4 @@ func main() {
 	service.Init()
 	// start the service
 	service.Run()
-
 }
