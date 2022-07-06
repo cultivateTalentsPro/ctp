@@ -2,16 +2,15 @@ package controller
 
 import (
 	"ctp/databases"
+	"ctp/logger"
 	"ctp/middleware"
 	"ctp/model"
 	"ctp/response"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"github.com/sirupsen/logrus"
-	"ctp/logger"
 	//"go-micro.dev/v4/services/db"
 	"golang.org/x/crypto/bcrypt"
 	"io/ioutil"
@@ -36,7 +35,6 @@ type VueUserInfo struct {
 func IsExistUser(db *gorm.DB, reg model.RegisterParam) bool {
 	exist := db.HasTable("register_params")
 	if exist {
-		fmt.Println(exist)
 		//db.Where("phone_number = ?", phoneNumber).First(&reg)
 		db.Find(&reg, "phone_number = ? OR email = ?", reg.PhoneNumber, reg.Email)
 		if reg.ID != 0 {
@@ -75,7 +73,7 @@ func Resister(ctx *gin.Context) {
 	}
 
 	//ctx.Bind(&reg)
-	fmt.Println(reg)
+	//fmt.Println(reg)
 	if reg.Email == "" || reg.UserType == "" {
 		log.Error("111111111")
 		response.Response(ctx,http.StatusOK, 422,nil, "邮箱不能为空")
